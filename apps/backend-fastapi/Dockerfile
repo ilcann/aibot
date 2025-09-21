@@ -1,14 +1,8 @@
 # 1. Base image
-FROM python:3.13-slim
+FROM pytorch/pytorch
 
 # 2. Çalışma dizini
 WORKDIR /app
-
-# 3. Sistem bağımlılıkları
-RUN apt-get update && apt-get install -y \
-    curl \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
 
 # 4. uv kur
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
