@@ -10,9 +10,8 @@ ENV PATH="/root/.local/bin:$PATH"
 
 # 5. Uv dosyalarını kopyala
 COPY pyproject.toml uv.lock* /app/
-
-# 6. Dependencies yükle
-RUN uv sync
+    
+RUN pip install .
 
 # 7. Kodları kopyala
 COPY ./src /app/src
