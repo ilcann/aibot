@@ -18,7 +18,7 @@ ENV PATH="/root/.local/bin:$PATH"
 COPY pyproject.toml uv.lock* /app/
 
 # 6. Dependencies yükle
-RUN uv sync --no-venv
+RUN uv sync
 
 # 7. Kodları kopyala
 COPY ./src /app/src
