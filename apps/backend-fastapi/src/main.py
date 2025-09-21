@@ -1,4 +1,4 @@
-from routers import ner_router
+from src.routers import ner_router
 from fastapi import FastAPI
 
 app = FastAPI(

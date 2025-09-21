@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from services import LabelService
-from models.response import GetLabelsResponse, SyncLabelsResponse, StandardResponse
+from src.services import LabelService
+from src.models.response import GetLabelsResponse, SyncLabelsResponse, StandardResponse
 from interceptors import standard_response
 
 router = APIRouter(prefix="/labels", tags=["Labels"])

@@ -1,7 +1,7 @@
 from pydantic.generics import GenericModel
 from fastapi.responses import JSONResponse
 from functools import wraps
-from models.response import StandardResponse
+from src.models.response import StandardResponse
 
 # Wrapper decorator
 def standard_response():

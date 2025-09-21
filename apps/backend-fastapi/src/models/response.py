@@ -1,6 +1,6 @@
 from typing import List, Generic, TypeVar
 from pydantic import BaseModel
-from schemas import Entity
+from src.schemas import Entity
 
 T = TypeVar("T")
 

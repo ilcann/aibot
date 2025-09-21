@@ -1,6 +1,6 @@
 import httpx
-from core import settings
-from models import label_store
+from src.core import settings
+from src.models import label_store
 
 class LabelService:
     async def sync_labels(self) -> list[str]:

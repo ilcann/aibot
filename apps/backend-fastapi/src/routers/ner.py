@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
-from interceptors import standard_response
-from models.response import ExtractEntitiesResponse, StandardResponse
+from src.interceptors import standard_response
+from src.models.response import ExtractEntitiesResponse, StandardResponse
 
 ner_router = APIRouter()
 
