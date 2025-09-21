@@ -57,6 +57,7 @@ services:
       VITE_API_URL: http://localhost/api
     depends_on:
       - backend-nest
+      - backend-fastapi
     volumes:
       - ./apps/frontend-vite:/app
       - /app/node_modules

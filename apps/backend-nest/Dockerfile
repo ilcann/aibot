@@ -8,7 +8,7 @@ RUN npm install -g pnpm
 WORKDIR /app
 
 # 4. package dosyalarını kopyala
-COPY package*.json pnpm-lock.yaml ./
+COPY package*.json ./
 
 # 5. Dependencies yükle
 RUN pnpm install

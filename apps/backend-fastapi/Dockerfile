@@ -1,5 +1,5 @@
 # 1. Base image
-FROM python:3.12-slim
+FROM python:3.13-slim
 
 # 2. Sistem bağımlılıkları
 RUN apt-get update && apt-get install -y \
@@ -15,7 +15,7 @@ ENV PATH="/root/.local/bin:$PATH"
 WORKDIR /app
 
 # 5. Poetry dosyalarını kopyala
-COPY pyproject.toml poetry.lock* ./
+COPY pyproject.toml README.md ./
 
 # 6. Dependencies yükle (virtualenv devre dışı, container içinde direkt)
 RUN poetry config virtualenvs.create false \
