@@ -5,18 +5,18 @@ from src.interceptors import standard_response
 
 router = APIRouter(prefix="/labels", tags=["Labels"])
 
-@router.post("/sync", response_model=StandardResponse[ControllerResponse[SyncLabelsResponse]])
+@router.post("/sync", response_model=StandardResponse[SyncLabelsResponse])
 @standard_response()
 async def sync_labels():
     updated_labels = await label_service.sync_labels()
     
-    return ControllerResponse(
-        data=SyncLabelsResponse(
+    return {
+        "data": SyncLabelsResponse(
             count=len(updated_labels),
             labels=updated_labels
         ),
-        message="Labels synchronized successfully"
-    )
+        "message": "Labels synchronized successfully"
+    }
 
 @router.get("/", response_model=StandardResponse[GetLabelsResponse])
 @standard_response()

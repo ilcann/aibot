@@ -1,31 +1,31 @@
 # 1. Base image
 FROM python:3.13-slim
 
-# 2. Sistem bağımlılıkları
+# 2. Çalışma dizini
+WORKDIR /app
+
+# 3. Sistem bağımlılıkları
 RUN apt-get update && apt-get install -y \
     curl \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# 3. Poetry kur
-RUN curl -sSL https://install.python-poetry.org | python3 -
+# 4. Poetry kur
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 ENV PATH="/root/.local/bin:$PATH"
 
-# 4. Çalışma dizini
-WORKDIR /app
-
-# 5. Poetry dosyalarını kopyala
-COPY pyproject.toml README.md ./
+# 5. Uv dosyalarını kopyala
+COPY pyproject.toml uv.lock* /app/
 
 # 6. Dependencies yükle (virtualenv devre dışı, container içinde direkt)
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi
+RUN uv venv
+RUN uv sync
 
 # 7. Kodları kopyala
-COPY . .
+COPY ./src /app/src
 
 # 8. Port expose
 EXPOSE 8000
 
 # 9. Uvicorn ile FastAPI başlat
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["python", "src/run.py"]
