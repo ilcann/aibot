@@ -10,16 +10,15 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# 4. Poetry kur
+# 4. uv kur
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 ENV PATH="/root/.local/bin:$PATH"
 
 # 5. Uv dosyalarını kopyala
 COPY pyproject.toml uv.lock* /app/
 
-# 6. Dependencies yükle (virtualenv devre dışı, container içinde direkt)
-RUN uv venv
-RUN uv sync
+# 6. Dependencies yükle
+RUN uv sync --no-venv
 
 # 7. Kodları kopyala
 COPY ./src /app/src
