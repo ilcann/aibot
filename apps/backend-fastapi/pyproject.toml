@@ -4,4 +4,25 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "fastapi>=0.117.1",
+    "uvicorn[standard]>=0.36.0",
+    "httpx (>=0.28.1,<0.29.0)",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.9.0",
+    "ruff>=0.13.1",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+select = ["E", "F", "I", "B"]   # Hangi kuralları uygulasın
+ignore = ["E501"]               # Göz ardı etmek istediklerin
+fix = true                      # Otomatik düzeltmeye izin ver
