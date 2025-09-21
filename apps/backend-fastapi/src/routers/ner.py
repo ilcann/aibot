@@ -1,11 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from src.interceptors import standard_response
-from src.models.response import ExtractEntitiesResponse, StandardResponse
+from src.models.response import ControllerResponse, ExtractEntitiesRequest, ExtractEntitiesResponse, StandardResponse
+from src.services.gliner import gliner_service
 
-ner_router = APIRouter()
+router = APIRouter(prefix="/ner", tags=["NER"])
 
-@ner_router.post("/extract", response_model=StandardResponse[ExtractEntitiesResponse])
+@router.post("/extract", response_model=StandardResponse[ExtractEntitiesResponse])
 @standard_response()
-async def extract_entities(request: Request):
-    data = await request.json()
-    text = data.get("text", "")
+async def extract_entities(request: ExtractEntitiesRequest):
+    text = request.text
+    entities = gliner_service.extract_entities(text)
+    return {
+        "data": ExtractEntitiesResponse(entities=entities),
+        "message": "Entities extracted successfully"
+    }

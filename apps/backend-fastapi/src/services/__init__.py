@@ -1,3 +1,4 @@
-from .label import LabelService
+from .label import label_service
+from .gliner import gliner_service
 
-__all__ = ["LabelService"]
+__all__ = ["label_service", "gliner_service"]

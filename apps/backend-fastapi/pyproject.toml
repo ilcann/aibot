@@ -9,6 +9,8 @@ dependencies = [
     "uvicorn[standard]>=0.36.0",
     "httpx (>=0.28.1,<0.29.0)",
     "pydantic>=2.11.9",
+    "gliner>=0.2.22",
+    "pydantic-settings>=2.10.1",
 ]
 
 [dependency-groups]

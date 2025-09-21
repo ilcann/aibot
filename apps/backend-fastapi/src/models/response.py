@@ -10,6 +10,10 @@ class StandardResponse(BaseModel, Generic[T]):
     data: T
     message: str = "Success"
 
+class ControllerResponse(BaseModel, Generic[T]):
+    data: T
+    message: str = "Success"
+
 # POST /sync-labels response
 class SyncLabelsResponse(BaseModel):
     count: int
@@ -20,3 +24,6 @@ class GetLabelsResponse(BaseModel):
     
 class ExtractEntitiesResponse(BaseModel):
     entities: List[Entity]
+
+class ExtractEntitiesRequest(BaseModel):
+    text: str
