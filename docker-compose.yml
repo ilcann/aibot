@@ -17,21 +17,36 @@ services:
     ports:
       - "6379:6379"
     command: ["redis-server", "--appendonly", "yes"]
-
+  backend-nest:
+    build:
+      context: ./apps/backend-nest
+    restart: unless-stopped
+    environment:
+      - NESTJS_URL=http://aibot-backend-nest-1:5000
+      - VITE_PUBLIC_URL=http://aibot-frontend-vite-1:5173
+      - FASTAPI_URL=http://aibot-backend-fastapi-1:8000
+      - DATABASE_URL=postgres://devuser:devpass@postgres:5432/devdb
+      - REDIS_URL=redis://redis:6379
+      - NESTJS_PORT=5000
+    depends_on:
+      - redis
+    volumes:
+      - ./apps/backend-nest:/app
+      - /app/node_modules
+    ports:
+      - "5000:5000"
   backend-fastapi:
     build:
       context: ./apps/backend-fastapi
       dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
-      - postgres
-      - redis
+      - backend-nest
     ports:
       - "8000:8000"
     environment:
-      - NESTJS_API_URL=/api
-      - FASTAPI_URL=/fastapi
-      - FASTAPI_HOST=backend-fastapi:8000
+      - NESTJS_URL=http://aibot-backend-nest-1:5000
+      - FASTAPI_URL=http://aibot-backend-fastapi-1:8000
       - FASTAPI_PORT=8000
       - ENV=development
       - GLINER_MODEL_NAME=urchade/gliner_large-v2.1
@@ -45,6 +60,8 @@ services:
     volumes:
       - ./apps/frontend-vite:/app
       - /app/node_modules
+    environment:
+      VITE_API_URL: /api
     ports:
       - "5173:5173"
 
