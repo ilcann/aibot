@@ -22,19 +22,19 @@ services:
       context: ./apps/backend-nest
     restart: unless-stopped
     environment:
-      - NESTJS_URL=http://aibot-backend-nest-1:5000
+      - NESTJS_URL=http://aibot-backend-nest-1:5001
       - VITE_PUBLIC_URL=http://aibot-frontend-vite-1:5173
       - FASTAPI_URL=http://aibot-backend-fastapi-1:8000
       - DATABASE_URL=postgres://devuser:devpass@postgres:5432/devdb
       - REDIS_URL=redis://redis:6379
-      - NESTJS_PORT=5000
+      - NESTJS_PORT=5001
     depends_on:
       - redis
     volumes:
       - ./apps/backend-nest:/app
       - /app/node_modules
     ports:
-      - "5000:5000"
+      - "5001:5001"
   backend-fastapi:
     build:
       context: ./apps/backend-fastapi
@@ -45,7 +45,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - NESTJS_URL=http://aibot-backend-nest-1:5000
+      - NESTJS_URL=http://aibot-backend-nest-1:5001
       - FASTAPI_URL=http://aibot-backend-fastapi-1:8000
       - FASTAPI_PORT=8000
       - ENV=development
