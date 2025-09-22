@@ -27,9 +27,14 @@ services:
       - postgres
       - redis
     ports:
-      - "8000:8000"  # host:container
-    env_file:
-      - ./apps/backend-fastapi/.env    # Container çalışırken ortam değişkenlerini buradan alır
+      - "8000:8000"
+    environment:
+      - NESTJS_API_URL=/api
+      - FASTAPI_URL=/fastapi
+      - FASTAPI_HOST=backend-fastapi:8000
+      - FASTAPI_PORT=8000
+      - ENV=development
+      - GLINER_MODEL_NAME=urchade/gliner_large-v2.1
     volumes:
       - ./apps/backend-fastapi:/app
 
@@ -37,8 +42,6 @@ services:
     build:
       context: ./apps/frontend-vite
     restart: unless-stopped
-    environment:
-      VITE_API_URL: http://localhost/api
     volumes:
       - ./apps/frontend-vite:/app
       - /app/node_modules
